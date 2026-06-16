@@ -1,556 +1,563 @@
 <!DOCTYPE html>
-<!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]><html class="no-js ie ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 8)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<html lang="en">
 <head>
+<meta charset="utf-8">
+<title>Rajat Thakur — Senior Software Engineer · Voice AI & Telephony</title>
+<meta name="description" content="Rajat Thakur — Senior Software Engineer building real-time telephony and conversational Voice AI systems at production scale.">
+<meta name="author" content="Rajat Thakur">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="favicon.png">
 
-   <!--- Basic Page Needs
-   ================================================== -->
-   <meta charset="utf-8">
-	<title>about me</title>
-	<meta name="description" content="">
-	<meta name="author" content="">
+<!-- Fonts & Icons -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-   <!-- Mobile Specific Metas
-   ================================================== -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<style>
+/* ============================================================
+   THEME TOKENS
+   ============================================================ */
+:root{
+  --bg:#06070d;
+  --bg-soft:#0c0e17;
+  --panel:rgba(255,255,255,.04);
+  --panel-brd:rgba(255,255,255,.09);
+  --text:#eef1f8;
+  --muted:#9aa3b6;
+  --faint:#5c6480;
+  --accent:#6e8bff;
+  --accent2:#b07bff;
+  --accent3:#34e7c5;
+  --grad:linear-gradient(120deg,#6e8bff 0%,#b07bff 45%,#34e7c5 100%);
+  --maxw:1180px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
 
-	<!-- CSS
-    ================================================== -->
-   <link rel="stylesheet" href="css/default.css">
-	<link rel="stylesheet" href="css/layout.css">
-   <link rel="stylesheet" href="css/media-queries.css">
-   <link rel="stylesheet" href="css/magnific-popup.css">
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+body.menu-open{overflow:hidden}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{font-family:'Sora',sans-serif;line-height:1.1;letter-spacing:-.02em}
+section{position:relative;z-index:2}
+::selection{background:rgba(110,139,255,.35)}
 
-   <!-- Script
-   ================================================== -->
-	<script src="js/modernizr.js"></script>
+/* ============================================================
+   BACKGROUND — animated aurora mesh + grain + cursor glow
+   ============================================================ */
+.bg-layer{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;mix-blend-mode:screen}
+.orb.a{width:55vw;height:55vw;background:#3247c9;top:-15vw;left:-10vw;animation:float1 22s var(--ease) infinite alternate}
+.orb.b{width:45vw;height:45vw;background:#7d35c9;bottom:-12vw;right:-8vw;animation:float2 26s var(--ease) infinite alternate}
+.orb.c{width:38vw;height:38vw;background:#127d6e;top:35%;left:45%;animation:float3 30s var(--ease) infinite alternate}
+@keyframes float1{to{transform:translate(12vw,8vh) scale(1.15)}}
+@keyframes float2{to{transform:translate(-10vw,-6vh) scale(1.1)}}
+@keyframes float3{to{transform:translate(-14vw,10vh) scale(.85)}}
+.grid-overlay{position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:64px 64px;mask-image:radial-gradient(ellipse at 50% 0%,#000 30%,transparent 80%)}
+.cursor-glow{position:fixed;width:520px;height:520px;border-radius:50%;left:0;top:0;
+  background:radial-gradient(circle,rgba(110,139,255,.18),transparent 60%);
+  transform:translate(-50%,-50%);pointer-events:none;z-index:1;transition:opacity .4s}
 
-   <!-- Favicons
-	================================================== -->
-	<!-- <link rel="shortcut icon" href="favicon.png" > -->
+/* custom cursor dot */
+.cursor-dot{position:fixed;left:0;top:0;width:8px;height:8px;border-radius:50%;background:var(--accent3);
+  transform:translate(-50%,-50%);pointer-events:none;z-index:9999;transition:width .25s,height .25s,background .25s}
+.cursor-ring{position:fixed;left:0;top:0;width:38px;height:38px;border:1.5px solid rgba(255,255,255,.35);border-radius:50%;
+  transform:translate(-50%,-50%);pointer-events:none;z-index:9999;transition:width .25s,height .25s,border-color .25s,background .25s}
+body.cursor-hover .cursor-ring{width:60px;height:60px;border-color:var(--accent);background:rgba(110,139,255,.08)}
+body.cursor-hover .cursor-dot{width:4px;height:4px}
+@media(hover:none),(max-width:760px){.cursor-dot,.cursor-ring,.cursor-glow{display:none}}
 
+/* ============================================================
+   PROGRESS BAR + NAV
+   ============================================================ */
+.scroll-progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:1000;background:var(--grad);box-shadow:0 0 12px rgba(110,139,255,.7)}
+nav{position:fixed;top:0;left:0;width:100%;z-index:900;padding:18px 0;transition:.4s var(--ease)}
+nav.scrolled{padding:10px 0;background:rgba(6,7,13,.72);backdrop-filter:blur(18px) saturate(160%);border-bottom:1px solid var(--panel-brd)}
+.nav-inner{max-width:var(--maxw);margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Sora';font-weight:800;font-size:19px;letter-spacing:-.03em;display:flex;align-items:center;gap:9px}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:var(--grad);display:grid;place-items:center;font-size:14px;color:#06070d;box-shadow:0 6px 22px rgba(110,139,255,.4)}
+.nav-links{display:flex;gap:6px;align-items:center}
+.nav-links a{font-size:14px;color:var(--muted);padding:8px 14px;border-radius:10px;font-weight:500;transition:.25s}
+.nav-links a:hover{color:var(--text);background:var(--panel)}
+.nav-cta{background:var(--grad);color:#06070d!important;font-weight:600;box-shadow:0 6px 20px rgba(110,139,255,.3)}
+.nav-cta:hover{filter:brightness(1.08)}
+.burger{display:none;font-size:22px;background:none;border:none;color:var(--text);cursor:pointer}
+@media(max-width:860px){
+  .nav-links{position:fixed;inset:0 0 0 auto;width:min(78vw,320px);flex-direction:column;justify-content:center;gap:8px;
+    background:rgba(8,9,16,.96);backdrop-filter:blur(20px);transform:translateX(100%);transition:.45s var(--ease);padding:40px;border-left:1px solid var(--panel-brd)}
+  .nav-links.open{transform:translateX(0)}
+  .nav-links a{font-size:18px;width:100%}
+  .burger{display:block;z-index:901}
+}
+
+/* ============================================================
+   LAYOUT HELPERS
+   ============================================================ */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent3);padding:7px 15px;border:1px solid var(--panel-brd);border-radius:100px;background:var(--panel);margin-bottom:22px}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent3);box-shadow:0 0 10px var(--accent3);animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.4}}
+.sec-head{margin-bottom:54px;max-width:680px}
+.sec-head h2{font-size:clamp(30px,4.6vw,50px);font-weight:800;margin-bottom:14px}
+.sec-head p{color:var(--muted);font-size:17px}
+.gradient-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+section.pad{padding:clamp(80px,11vw,150px) 0}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+header{min-height:100vh;display:flex;align-items:center;position:relative;padding:120px 0 80px}
+.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:60px;align-items:center}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:44px;text-align:center}}
+.hero h1{font-size:clamp(44px,8vw,86px);font-weight:800;line-height:.98;margin:18px 0 22px}
+.hero h1 .line{display:block;overflow:hidden}
+.hero h1 .line>span{display:block;transform:translateY(110%);animation:rise .9s var(--ease) forwards}
+.hero h1 .line:nth-child(2)>span{animation-delay:.12s}
+.hero h1 .line:nth-child(3)>span{animation-delay:.24s}
+@keyframes rise{to{transform:translateY(0)}}
+.hero .tag{font-size:clamp(17px,2.3vw,21px);color:var(--muted);max-width:560px;margin-bottom:18px}
+@media(max-width:900px){.hero .tag{margin-inline:auto}}
+.hero .tag b{color:var(--text);font-weight:600}
+.hero-roles{font-family:'Sora';font-weight:600;color:var(--accent3)}
+.hero-cta{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap}
+@media(max-width:900px){.hero-cta{justify-content:center}}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:14px;font-weight:600;font-size:15px;
+  border:1px solid var(--panel-brd);transition:.3s var(--ease);will-change:transform;cursor:pointer}
+.btn-primary{background:var(--grad);color:#06070d;border:none;box-shadow:0 10px 34px rgba(110,139,255,.34)}
+.btn-primary:hover{box-shadow:0 14px 44px rgba(110,139,255,.5)}
+.btn-ghost{background:var(--panel);color:var(--text)}
+.btn-ghost:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.2)}
+.hero-socials{display:flex;gap:12px;margin-top:30px}
+@media(max-width:900px){.hero-socials{justify-content:center}}
+.hero-socials a{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--panel);
+  border:1px solid var(--panel-brd);color:var(--muted);font-size:17px;transition:.3s var(--ease)}
+.hero-socials a:hover{color:var(--text);transform:translateY(-3px);border-color:var(--accent);box-shadow:0 8px 22px rgba(110,139,255,.25)}
+
+/* hero visual card (tilt) */
+.hero-card{position:relative;padding:30px;border-radius:26px;background:var(--panel);border:1px solid var(--panel-brd);
+  backdrop-filter:blur(14px);transform-style:preserve-3d;transition:transform .15s var(--ease);
+  opacity:0;animation:fadeUp 1s .5s var(--ease) forwards}
+.hero-card .avatar{width:108px;height:108px;border-radius:22px;object-fit:cover;border:2px solid rgba(255,255,255,.12);
+  box-shadow:0 12px 40px rgba(0,0,0,.5);transform:translateZ(40px)}
+.hero-card .av-row{display:flex;align-items:center;gap:18px;margin-bottom:24px}
+.hero-card h3{font-size:21px;transform:translateZ(30px)}
+.hero-card .loc{color:var(--muted);font-size:14px;display:flex;align-items:center;gap:7px;margin-top:5px;transform:translateZ(30px)}
+.hero-card .status{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:var(--accent3);
+  background:rgba(52,231,197,.08);border:1px solid rgba(52,231,197,.25);padding:5px 12px;border-radius:100px;margin-top:14px;transform:translateZ(30px)}
+.hero-card .status .led{width:7px;height:7px;border-radius:50%;background:var(--accent3);box-shadow:0 0 8px var(--accent3);animation:pulse 1.6s infinite}
+.mini-stats{margin-top:24px;transform:translateZ(20px)}
+.mini-stats div{display:flex;align-items:baseline;gap:12px;padding:16px 18px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--panel-brd)}
+.mini-stats b{font-family:'Sora';font-size:26px;font-weight:700;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap}
+.mini-stats span{font-size:12.5px;color:var(--muted);letter-spacing:.02em}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+.scroll-hint{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);color:var(--faint);font-size:12px;
+  letter-spacing:.2em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:10px;animation:pulse 2.4s infinite}
+.scroll-hint .mouse{width:22px;height:36px;border:1.5px solid var(--faint);border-radius:12px;position:relative}
+.scroll-hint .mouse::after{content:'';position:absolute;top:7px;left:50%;width:3px;height:7px;background:var(--accent3);border-radius:2px;transform:translateX(-50%);animation:wheel 1.6s infinite}
+@keyframes wheel{0%{opacity:0;top:6px}40%{opacity:1}80%{opacity:0;top:16px}}
+
+/* ============================================================
+   REVEAL ANIM
+   ============================================================ */
+.reveal{opacity:0;transform:translateY(38px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+@media(max-width:860px){.about-grid{grid-template-columns:1fr;gap:32px}}
+.about-grid p{color:var(--muted);font-size:17px;margin-bottom:18px}
+.about-grid p b{color:var(--text);font-weight:600}
+.focus-list{display:grid;gap:14px}
+.focus-list .fitem{display:flex;gap:16px;padding:20px;border-radius:16px;background:var(--panel);border:1px solid var(--panel-brd);transition:.3s var(--ease)}
+.focus-list .fitem:hover{transform:translateX(6px);border-color:rgba(110,139,255,.4)}
+.focus-list .fic{width:46px;height:46px;flex:0 0 46px;border-radius:13px;display:grid;place-items:center;font-size:19px;
+  background:rgba(110,139,255,.1);color:var(--accent);border:1px solid rgba(110,139,255,.2)}
+.focus-list h4{font-size:16px;margin-bottom:3px}
+.focus-list small{color:var(--muted);font-size:13.5px}
+
+/* ============================================================
+   TIMELINE
+   ============================================================ */
+.timeline{position:relative;padding-left:34px}
+.timeline::before{content:'';position:absolute;left:9px;top:8px;bottom:8px;width:2px;background:linear-gradient(var(--accent),var(--accent2),transparent)}
+.tl-item{position:relative;padding:0 0 50px 30px}
+.tl-item:last-child{padding-bottom:0}
+.tl-item::before{content:'';position:absolute;left:-32px;top:5px;width:20px;height:20px;border-radius:50%;background:var(--bg);
+  border:2px solid var(--accent);box-shadow:0 0 0 5px rgba(110,139,255,.12)}
+.tl-item.cur::before{background:var(--grad);border-color:transparent;animation:glowdot 2s infinite}
+@keyframes glowdot{50%{box-shadow:0 0 0 9px rgba(110,139,255,.05)}}
+.tl-card{padding:28px;border-radius:20px;background:var(--panel);border:1px solid var(--panel-brd);transition:.35s var(--ease)}
+.tl-card:hover{border-color:rgba(110,139,255,.35);background:rgba(255,255,255,.05);transform:translateY(-3px)}
+.tl-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;align-items:baseline;margin-bottom:6px}
+.tl-top h3{font-size:21px}
+.tl-top h3 span{color:var(--accent3)}
+.tl-date{font-size:13px;color:var(--muted);font-weight:600;white-space:nowrap;background:var(--panel);padding:4px 12px;border-radius:100px;border:1px solid var(--panel-brd)}
+.tl-role{color:var(--muted);font-size:14.5px;margin-bottom:18px}
+.tl-bullets{list-style:none;display:grid;gap:11px}
+.tl-bullets li{position:relative;padding-left:26px;color:#c4cad9;font-size:14.7px}
+.tl-bullets li::before{content:'\f0da';font-family:'Font Awesome 6 Free';font-weight:900;position:absolute;left:4px;top:1px;color:var(--accent);font-size:12px}
+.tl-bullets li b{color:var(--text)}
+.tl-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}
+.tl-chips span{font-size:12px;color:var(--muted);padding:4px 11px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid var(--panel-brd)}
+
+/* ============================================================
+   SKILLS
+   ============================================================ */
+.skill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:20px}
+.skill-card{padding:28px;border-radius:20px;background:var(--panel);border:1px solid var(--panel-brd);position:relative;overflow:hidden;transition:.35s var(--ease)}
+.skill-card::after{content:'';position:absolute;inset:0;border-radius:20px;padding:1px;background:var(--grad);opacity:0;transition:.4s;
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.skill-card:hover{transform:translateY(-5px)}
+.skill-card:hover::after{opacity:.6}
+.skill-head{display:flex;align-items:center;gap:13px;margin-bottom:18px}
+.skill-head .si{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:19px;color:#06070d;background:var(--grad)}
+.skill-head h4{font-size:17px}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pills span{font-size:13px;padding:6px 13px;border-radius:100px;background:rgba(255,255,255,.04);border:1px solid var(--panel-brd);color:#cdd3e2;transition:.25s}
+.pills span:hover{background:rgba(110,139,255,.14);border-color:rgba(110,139,255,.4);color:#fff;transform:translateY(-2px)}
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.contact-card{text-align:center;padding:clamp(44px,7vw,80px) 32px;border-radius:30px;position:relative;overflow:hidden;
+  background:radial-gradient(120% 140% at 50% 0%,rgba(110,139,255,.16),transparent 60%),var(--bg-soft);border:1px solid var(--panel-brd)}
+.contact-card h2{font-size:clamp(30px,5vw,52px);font-weight:800;margin-bottom:18px}
+.contact-card p{color:var(--muted);font-size:18px;max-width:540px;margin:0 auto 34px}
+.contact-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.contact-meta{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin-top:40px;color:var(--muted);font-size:14.5px}
+.contact-meta a{display:flex;align-items:center;gap:9px;transition:.25s}
+.contact-meta a:hover{color:var(--accent3)}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{padding:46px 0;border-top:1px solid var(--panel-brd);text-align:center;position:relative;z-index:2}
+footer .fsoc{display:flex;gap:12px;justify-content:center;margin-bottom:18px}
+footer .fsoc a{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;background:var(--panel);
+  border:1px solid var(--panel-brd);color:var(--muted);transition:.3s var(--ease)}
+footer .fsoc a:hover{color:var(--text);transform:translateY(-3px);border-color:var(--accent)}
+footer p{color:var(--faint);font-size:13.5px}
+</style>
 </head>
 
 <body>
 
-   <!-- Header
-   ================================================== -->
-   <header id="home">
+<!-- background -->
+<div class="bg-layer">
+  <div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
+  <div class="grid-overlay"></div>
+</div>
+<div class="cursor-glow" id="glow"></div>
+<div class="cursor-ring" id="ring"></div>
+<div class="cursor-dot" id="dot"></div>
+<div class="scroll-progress" id="progress"></div>
 
-      <nav id="nav-wrap">
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#home" class="logo" data-cursor><span class="mark">RT</span>Rajat Thakur</a>
+    <div class="nav-links" id="navlinks">
+      <a href="#about" data-cursor>About</a>
+      <a href="#journey" data-cursor>Journey</a>
+      <a href="#skills" data-cursor>Skills</a>
+      <a href="#contact" data-cursor>Contact</a>
+      <a href="./documents/Rajat_Thakur_Resume_2026.pdf" class="nav-cta" download data-cursor><i class="fa fa-download"></i> Resume</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Menu"><i class="fa fa-bars"></i></button>
+  </div>
+</nav>
 
-         <a class="mobile-btn" href="#nav-wrap" title="Show navigation">Show navigation</a>
-	      <a class="mobile-btn" href="#" title="Hide navigation">Hide navigation</a>
+<!-- HERO -->
+<header id="home">
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <span class="eyebrow"><span class="dot"></span>Senior Software Engineer · 8+ Years</span>
+      <h1>
+        <span class="line"><span>Building voice that</span></span>
+        <span class="line"><span class="gradient-text">thinks, listens</span></span>
+        <span class="line"><span>& responds in real time.</span></span>
+      </h1>
+      <p class="tag">I engineer <b>low-latency LLM voice agents</b> over <span class="hero-roles" id="roles">Asterisk</span> — production conversational AI across <b>Indic languages</b>, telephony &amp; resilient distributed systems.</p>
+      <div class="hero-cta">
+        <a href="#journey" class="btn btn-primary" data-magnetic data-cursor><i class="fa fa-route"></i> Explore my journey</a>
+        <a href="#contact" class="btn btn-ghost" data-magnetic data-cursor><i class="fa fa-paper-plane"></i> Get in touch</a>
+      </div>
+      <div class="hero-socials">
+        <a href="https://www.linkedin.com/in/thakurrajat126" target="_blank" data-cursor aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://thakurrajat126.github.io" target="_blank" data-cursor aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="mailto:thakurrajat126@gmail.com" data-cursor aria-label="Email"><i class="fa fa-envelope"></i></a>
+        <a href="https://www.instagram.com/uskinazronse/" target="_blank" data-cursor aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
 
-         <ul id="nav" class="nav">
-            <li class="current"><a class="smoothscroll" href="#home">Home</a></li>
-            <li><a class="smoothscroll" href="#about">About</a></li>
-	         <li><a class="smoothscroll" href="#resume">Resume</a></li>
-            <!-- <li><a class="smoothscroll" href="#portfolio">Works</a></li> -->
-            <!-- <li><a class="smoothscroll" href="#testimonials">Testimonials</a></li> -->
-            <!-- <li><a class="smoothscroll" href="#contact">Contact</a></li> -->
-         </ul> <!-- end #nav -->
+    <div class="hero-card" id="tilt" data-cursor>
+      <div class="av-row">
+        <img class="avatar" src="images/profilepic.jpg" alt="Rajat Thakur">
+        <div>
+          <h3>Rajat Thakur</h3>
+          <div class="loc"><i class="fa fa-location-dot"></i> Noida, India</div>
+          <span class="status"><span class="led"></span>Open to opportunities</span>
+        </div>
+      </div>
+      <div class="mini-stats">
+        <div><b>8+ Years</b><span>Engineering real-time systems</span></div>
+      </div>
+    </div>
+  </div>
 
-      </nav> <!-- end #nav-wrap -->
+  <div class="scroll-hint"><div class="mouse"></div>Scroll</div>
+</header>
 
-      <div class="row banner">
-         <div class="banner-text">
-            <h1 class="responsive-headline">Rajat Thakur</h1>
-            <h3>I'm a <span>full-stack software engineer</span>, <br>always ready to do what is needed to be done.<br> Let's <a class="smoothscroll" href="#about">start scrolling</a>
-            and learn more <a class="smoothscroll" href="#about">about me</a>.</h3>
-            <hr />
-            <ul class="social">
-               <!-- <li><a href="#"><i class="fa fa-facebook"></i></a></li> -->
-               <!-- <li><a href="#"><i class="fa fa-twitter"></i></a></li> -->
-               <!-- <li><a target="_blank" href="#"><i class="fa fa-google"></i></a></li> -->
-               <li><a target="_blank" href="https://www.linkedin.com/in/rajat-thakur-02a93b74"><i class="fa fa-linkedin"></i></a></li>
-               <li><a target="_blank"  href="https://www.instagram.com/uskinazronse/"><i class="fa fa-instagram"></i></a></li>
-               <!-- <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-               <li><a href="#"><i class="fa fa-skype"></i></a></li> -->
-            </ul>
-         </div>
+<!-- ABOUT -->
+<section class="pad" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="reveal">
+        <span class="eyebrow"><span class="dot"></span>About</span>
+        <h2 class="sec-head" style="margin-bottom:24px">From billing pipelines to <span class="gradient-text">real-time Voice AI.</span></h2>
+        <p>I'm a <b>backend &amp; Voice AI engineer</b> with 8+ years building real-time telephony and conversational-AI systems at production scale.</p>
+        <p>I specialize in <b>low-latency LLM voice agents</b> over Asterisk/PJSIP and Kamailio SIP infrastructure, with deep experience in <b>Indic-language STT/TTS pipelines and RAG</b>. I've shipped production voice bots across banking and enterprise deployments — all backed by strong fundamentals in <b>Java/Spring Boot, Python</b>, and resilient distributed systems.</p>
+      </div>
+      <div class="focus-list">
+        <div class="fitem reveal d1"><div class="fic"><i class="fa fa-microphone-lines"></i></div><div><h4>Conversational Voice AI</h4><small>Pipecat · AudioSocket · STT/TTS · VAD · agentic workflows</small></div></div>
+        <div class="fitem reveal d2"><div class="fic"><i class="fa fa-tower-broadcast"></i></div><div><h4>Real-Time Telephony</h4><small>Asterisk/PJSIP · Kamailio · SIP/RTP/SRTP · SIP trunking</small></div></div>
+        <div class="fitem reveal d3"><div class="fic"><i class="fa fa-bolt"></i></div><div><h4>Low-Latency Inference</h4><small>GPU-served models · TTFT/TTFA tuning · Redis vector RAG</small></div></div>
+        <div class="fitem reveal d4"><div class="fic"><i class="fa fa-server"></i></div><div><h4>Resilient Systems</h4><small>Multi-DC disaster recovery · HA · observability at scale</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY / TIMELINE -->
+<section class="pad" id="journey">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow"><span class="dot"></span>The Journey</span>
+      <h2>A track record of shipping <span class="gradient-text">systems that matter.</span></h2>
+      <p>Every role pushed the boundary — from national-scale messaging to real-time conversational AI.</p>
+    </div>
+
+    <div class="timeline">
+      <!-- Sinch -->
+      <div class="tl-item cur reveal">
+        <div class="tl-card" data-cursor>
+          <div class="tl-top">
+            <h3>Sinch <span>· Senior Software Engineer</span></h3>
+            <span class="tl-date">Dec 2021 — Present</span>
+          </div>
+          <div class="tl-role"><i class="fa fa-location-dot"></i> Noida · CPaaS / Voice AI platform for Indian SMB &amp; enterprise</div>
+          <ul class="tl-bullets">
+            <li>Built a <b>real-time Indic-language Voice AI platform</b> integrating Asterisk/PJSIP + Pipecat + AudioSocket with STT/TTS — conversational voice bots in Hindi, Telugu, Tamil &amp; more.</li>
+            <li>Architected <b>centralized SIP infrastructure on Kamailio</b> for trunk registration &amp; routing with multi-Asterisk HA, sustaining <b>~1300–1800 concurrent calls / 16-core node</b>, validated via SIPp load testing.</li>
+            <li>Cut voice-agent response latency with <b>GPU-served inference (NVIDIA T4 / g4dn)</b>, diagnosing &amp; resolving TTFT / TTFA bottlenecks on AWS.</li>
+            <li>Built <b>Indic-language RAG pipelines</b> on Redis vector search with multilingual embeddings.</li>
+            <li>Integrated <b>WhatsApp Business</b> into the voice platform via SIP trunking — IVR &amp; AI voice agents on WhatsApp numbers.</li>
+            <li>Designed a <b>Vendor Routing Manager</b> automating multi-vendor failover for enterprise resilience.</li>
+          </ul>
+          <div class="tl-chips"><span>Asterisk/PJSIP</span><span>Kamailio</span><span>Pipecat</span><span>AudioSocket</span><span>Redis Vector</span><span>AWS GPU</span><span>Python</span></div>
+        </div>
       </div>
 
-      <p class="scrolldown">
-         <a class="smoothscroll" href="#about"><i class="icon-down-circle"></i></a>
-      </p>
-
-   </header> <!-- Header End -->
-
-
-   <!-- About Section
-   ================================================== -->
-   <section id="about">
-
-      <div class="row">
-
-         <div class="three columns">
-
-            <img class="profile-pic"  src="images/profilepic.jpg" alt="" />
-
-         </div>
-
-         <div class="nine columns main-col">
-
-            <h2>About Me</h2>
-
-            <p>An inquisitive and determined full stack software engineer.<br>
-               Have worked on various projects and gained valuable experience.<br>
-               Have been part of Software architecture designing and experienced in full software life-cycle development.
-            </p>
-
-            <div class="row">
-
-               <div class="columns contact-details">
-
-                  <h2>Contact Details</h2>
-                  <p class="address">
-						   <span>Rajat Thakur</span><br>
-						   <span>Bengaluru<br>
-						         Karnataka
-                     </span><br>
-                     <span>+91-8894420430</span><br>
-                     <span>thakurrajat126@gmail.com</span><br>
-					   </p>
-
-               </div>
-
-               <div class="columns download">
-                  <p>
-                     <a href="./documents/Rajat_Resume.pdf" class="button" download><i class="fa fa-download"></i>Download Resume</a>
-                  </p>
-               </div>
-
-            </div> <!-- end row -->
-
-         </div> <!-- end .main-col -->
-
+      <!-- OneBill -->
+      <div class="tl-item reveal">
+        <div class="tl-card" data-cursor>
+          <div class="tl-top">
+            <h3>OneBill <span>· Senior Software Engineer</span></h3>
+            <span class="tl-date">Sep 2017 — Dec 2021</span>
+          </div>
+          <div class="tl-role"><i class="fa fa-location-dot"></i> Bengaluru · Billing &amp; messaging infra · UIDAI national-scale</div>
+          <ul class="tl-bullets">
+            <li>Built &amp; deployed a <b>high-throughput SMS Gateway middleware for the UIDAI program</b> — national-scale transaction routing, real-time monitoring &amp; billing across data centers using Java, SMPP, ActiveMQ, Nginx &amp; MongoDB.</li>
+            <li>Engineered <b>multi-datacenter Disaster Recovery</b> with real-time traffic distribution and near-zero loss for a mission-critical national service.</li>
+            <li>Established production <b>benchmarking &amp; observability with Grafana and ELK / Kibana</b>, enabling targeted performance tuning.</li>
+            <li>Enhanced a flexible <b>Workflow Engine</b> with third-party integrations &amp; SSO between billing and workflow systems.</li>
+          </ul>
+          <div class="tl-chips"><span>Java</span><span>SMPP</span><span>ActiveMQ</span><span>Nginx</span><span>MongoDB</span><span>Grafana</span><span>ELK</span></div>
+        </div>
       </div>
 
-   </section> <!-- About Section End-->
-
-
-   <!-- Resume Section
-   ================================================== -->
-   <section id="resume">
-
-      <!-- Education
-      ----------------------------------------------- -->
-      <div class="row education">
-
-         <div class="three columns header-col">
-            <h1><span>Education</span></h1>
-         </div>
-
-         <div class="nine columns main-col">
-
-            <div class="row item">
-
-               <div class="twelve columns">
-
-                  <h3>Baddi University of Emerging Sciences and Technologies</h3>
-                  <p class="info">B.Tech. in Computer Science <span>&bull;</span> <em class="date">August 2016</em></p>
-
-                  <p>
-                  </p>
-
-               </div>
-
-            </div> <!-- item end -->
-
-         </div> <!-- main-col end -->
-
-      </div> <!-- End Education -->
-
-
-      <!-- Work
-      ----------------------------------------------- -->
-      <div class="row work">
-
-         <div class="three columns header-col">
-            <h1><span>Work</span></h1>
-         </div>
-
-         <div class="nine columns main-col">
-
-            <div class="row item">
-
-               <div class="twelve columns">
-
-                  <h3>Sinch India</h3>
-                  <p class="info">Lead Developer <span>&bull;</span> <em class="date">December 2021 - Present</em></p>
-
-                  <p>
-                     As a core team member of Voice services, working on IVR, Missed-call, Click-to-call middleware
-solutions that provide seamless customer experience and caters ever-changing requirements in
-the world of CPaaS
-                  </p>
-
-               </div>
-
-            </div>
-
-            <div class="row item">
-
-               <div class="twelve columns">
-
-                  <h3>Onebill Software</h3>
-                  <p class="info">Full stack engineer <span>&bull;</span> <em class="date">September 2017 - December 2021</em></p>
-
-                  <p>
-                     Develops new and maintains existing applications.<br>
-                     Experience working with Design Patterns such as MVC and spring framework.<br>
-                     Versed in software development life-cycle,object-oriented programming, database design.<br>
-                     Knowledge of user authentication and authorization between multiple systems.<br>
-                     Experience with third-party API integrations.<br>
-                     Deep understanding of HTTP methods, RESTful architecture.
-                  </p>
-
-               </div>
-
-            </div> <!-- item end -->
-
-         </div> <!-- main-col end -->
-
-      </div> <!-- End Work -->
-
-
-      <!-- Skills
-      ----------------------------------------------- -->
-      <div class="row skill">
-
-         <div class="three columns header-col">
-            <h1><span>Skills</span></h1>
-         </div>
-
-         <div class="nine columns main-col">
-
-            <p>
-
-            </p>
-
-				<div class="bars">
-
-				   <ul class="skills">
-					   <li><span class="bar-expand percent80"></span><em>Java - Spring MVC</em></li>
-                  <li><span class="bar-expand percent80"></span><em>Data Structures and Algorithms</em></li>
-						<li><span class="bar-expand percent60"></span><em>AngularJs</em></li>
-						<li><span class="bar-expand percent80"></span><em>MongoDB</em></li>
-						<li><span class="bar-expand percent60"></span><em>MySQL</em></li>
-                  <li><span class="bar-expand percent80"></span><em>Redis</em></li>
-                  <li><span class="bar-expand percent80"></span><em>Message Brokers</em></li>
-                  <li><span class="bar-expand percent40"></span><em>NodeJs</em></li>
-					</ul>
-
-				</div><!-- end skill-bars -->
-
-			</div> <!-- main-col end -->
-
-      </div> <!-- End skills -->
-
-   </section> <!-- Resume Section End-->
-
-
-   <!-- Portfolio Section
-   ================================================== -->
-   <section id="portfolio" hidden>
-
-      <div class="row">
-
-         <div class="twelve columns collapsed">
-
-            <h1>Check Out Some of My Works.</h1>
-
-            <!-- portfolio-wrapper -->
-            <div id="portfolio-wrapper" class="bgrid-quarters s-bgrid-thirds cf">
-
-          	   <div class="columns portfolio-item">
-                  <div class="item-wrap">
-
-                     <a href="#modal-01" title="">
-                        <img alt="" src="images/portfolio/coffee.jpg">
-                        <div class="overlay">
-                           <div class="portfolio-item-meta">
-          					      <h5>Coffee</h5>
-                              <p>Illustrration</p>
-          					   </div>
-                        </div>
-                        <div class="link-icon"><i class="icon-plus"></i></div>
-                     </a>
-
-                  </div>
-          		</div> <!-- item end -->
-
-            </div> <!-- portfolio-wrapper end -->
-
-         </div> <!-- twelve columns end -->
-
-
-         <!-- Modal Popup
-	      --------------------------------------------------------------- -->
-
-         <div id="modal-01" class="popup-modal mfp-hide">
-
-		      <img class="scale-with-grid" src="images/portfolio/modals/m-coffee.jpg" alt="" />
-
-		      <div class="description-box">
-			      <h4>Coffee Cup</h4>
-			      <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
-               <span class="categories"><i class="fa fa-tag"></i>Branding, Webdesign</span>
-		      </div>
-
-            <div class="link-box">
-               <a href="http://www.behance.net" target="_blank">Details</a>
-		         <a class="popup-modal-dismiss">Close</a>
-            </div>
-
-	      </div><!-- modal-01 End -->
-
-      </div> <!-- row End -->
-
-   </section> <!-- Portfolio Section End-->
-
-
-   <!-- Call-To-Action Section
-   ================================================== -->
-   <section id="call-to-action" hidden>
-
-      <div class="row">
-
-         <div class="two columns header-col">
-
-            <h1><span>Get Hosting.</span></h1>
-
-         </div>
-
-         <div class="seven columns">
-
-            <h2><span class="lead">Unde Omnis Iste</span></h2>
-            <p><span class="lead">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
-            eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae. </span></p>
-
-         </div>
-
-         <div class="three columns action">
-
-
-
-         </div>
-
+      <!-- Education -->
+      <div class="tl-item reveal">
+        <div class="tl-card" data-cursor>
+          <div class="tl-top">
+            <h3>B.Tech, Computer Science <span>· Education</span></h3>
+            <span class="tl-date">2012 — 2016</span>
+          </div>
+          <div class="tl-role"><i class="fa fa-graduation-cap"></i> Baddi University of Emerging Science and Technology</div>
+          <ul class="tl-bullets">
+            <li>Foundation in data structures, algorithms, distributed systems &amp; object-oriented design that still underpins everything I build.</li>
+          </ul>
+        </div>
       </div>
+    </div>
+  </div>
+</section>
 
-   </section> <!-- Call-To-Action Section End-->
+<!-- SKILLS -->
+<section class="pad" id="skills">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow"><span class="dot"></span>Toolbox</span>
+      <h2>The stack behind the <span class="gradient-text">voice agents.</span></h2>
+      <p>From SIP packets on the wire to multilingual LLM pipelines in the cloud.</p>
+    </div>
 
-
-   <!-- Testimonials Section
-   ================================================== -->
-   <section id="testimonials" hidden>
-
-      <div class="text-container">
-
-         <div class="row">
-
-            <div class="two columns header-col">
-
-               <h1><span>Client Testimonials</span></h1>
-
-            </div>
-
-            <div class="ten columns flex-container">
-
-               <div class="flexslider">
-
-                  <ul class="slides">
-
-                     <li>
-                        <blockquote>
-                           <p>Your work is going to fill a large part of your life, and the only way to be truly satisfied is
-                           to do what you believe is great work. And the only way to do great work is to love what you do.
-                           If you haven't found it yet, keep looking. Don't settle. As with all matters of the heart, you'll know when you find it.
-                           </p>
-                           <cite>Steve Jobs</cite>
-                        </blockquote>
-                     </li> <!-- slide ends -->
-
-                     <li>
-                        <blockquote>
-                           <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet.
-                           Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem
-                           nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris.
-                           </p>
-                           <cite>Mr. Adobe</cite>
-                        </blockquote>
-                     </li> <!-- slide ends -->
-
-                  </ul>
-
-               </div> <!-- div.flexslider ends -->
-
-            </div> <!-- div.flex-container ends -->
-
-         </div> <!-- row ends -->
-
-       </div>  <!-- text-container ends -->
-
-   </section> <!-- Testimonials Section End-->
-
-
-   <!-- Contact Section
-   ================================================== -->
-   <section id="contact" hidden>
-
-         <div class="row section-head">
-
-            <div class="two columns header-col">
-
-               <h1><span>Get In Touch.</span></h1>
-
-            </div>
-
-            <div class="ten columns">
-
-                  <p class="lead">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
-                  eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
-                  voluptatem quia voluptas sit aspernatur aut odit aut fugit.
-                  </p>
-
-            </div>
-
-         </div>
-
-         <div class="row" hidden>
-
-            <div class="eight columns">
-
-               <!-- form -->
-               <form action="" method="post" id="contactForm" name="contactForm">
-					<fieldset>
-
-                  <div>
-						   <label for="contactName">Name <span class="required">*</span></label>
-						   <input type="text" value="" size="35" id="contactName" name="contactName">
-                  </div>
-
-                  <div>
-						   <label for="contactEmail">Email <span class="required">*</span></label>
-						   <input type="text" value="" size="35" id="contactEmail" name="contactEmail">
-                  </div>
-
-                  <div>
-						   <label for="contactSubject">Subject</label>
-						   <input type="text" value="" size="35" id="contactSubject" name="contactSubject">
-                  </div>
-
-                  <div>
-                     <label for="contactMessage">Message <span class="required">*</span></label>
-                     <textarea cols="50" rows="15" id="contactMessage" name="contactMessage"></textarea>
-                  </div>
-
-                  <div>
-                     <button class="submit">Submit</button>
-                     <span id="image-loader">
-                        <img alt="" src="images/loader.gif">
-                     </span>
-                  </div>
-
-					</fieldset>
-				   </form> <!-- Form End -->
-
-               <!-- contact-warning -->
-               <div id="message-warning"> Error boy</div>
-               <!-- contact-success -->
-				   <div id="message-success">
-                  <i class="fa fa-check"></i>Your message was sent, thank you!<br>
-				   </div>
-
-            </div>
-
-
-            <aside class="four columns footer-widgets" hidden>
-
-               <div class="widget widget_contact">
-
-					   <h4>Address and Phone</h4>
-					   <p class="address">
-						   Jonathan Doe<br>
-						   1600 Amphitheatre Parkway <br>
-						   Mountain View, CA 94043 US<br>
-						   <span>(123) 456-7890</span>
-					   </p>
-
-				   </div>
-
-               <div class="widget widget_tweets">
-
-                  <h4 class="widget-title">Latest Tweets</h4>
-
-                  <ul id="twitter">
-                     <li>
-                        <span>
-                        This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet.
-                        Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum
-                        <a href="#">http://t.co/CGIrdxIlI3</a>
-                        </span>
-                        <b><a href="#">2 Days Ago</a></b>
-                     </li>
-                     <li>
-                        <span>
-                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
-                        eaque ipsa quae ab illo inventore veritatis et quasi
-                        <a href="#">http://t.co/CGIrdxIlI3</a>
-                        </span>
-                        <b><a href="#">3 Days Ago</a></b>
-                     </li>
-                  </ul>
-
-		         </div>
-
-            </aside>
-
+    <div class="skill-grid">
+      <div class="skill-card reveal" data-cursor>
+        <div class="skill-head"><div class="si"><i class="fa fa-code"></i></div><h4>Languages</h4></div>
+        <div class="pills"><span>Java</span><span>Spring Boot</span><span>Python</span><span>SQL</span></div>
       </div>
-
-   </section> <!-- Contact Section End-->
-
-
-   <!-- footer
-   ================================================== -->
-   <footer>
-
-      <div class="row">
-
-         <div class="twelve columns">
-
-            <ul class="social-links">
-               <li><a target="_blank" href="https://www.linkedin.com/in/rajat-thakur-02a93b74"><i class="fa fa-linkedin"></i></a></li>
-               <li><a target="_blank"  href="https://www.instagram.com/uskinazronse/"><i class="fa fa-instagram"></i></a></li>
-            </ul>
-
-            <!-- <ul class="copyright">
-               <li>&copy; Copyright 2014 CeeVee</li>
-               <li>Design by <a href="http://www.styleshout.com/" title="Styleshout" target="_blank">Styleshout</a></li>   
-            </ul> -->
-
-         </div>
-
-         <div id="go-top"><a class="smoothscroll" title="Back to Top" href="#home"><i class="icon-up-open"></i></a></div>
-
+      <div class="skill-card reveal d1" data-cursor>
+        <div class="skill-head"><div class="si"><i class="fa fa-tower-broadcast"></i></div><h4>Voice &amp; Telephony</h4></div>
+        <div class="pills"><span>Asterisk / PJSIP</span><span>Kamailio</span><span>SIP / RTP / SRTP</span><span>SMPP</span><span>ARI</span><span>AudioSocket</span><span>SIPp</span><span>SIP trunking</span></div>
       </div>
+      <div class="skill-card reveal d2" data-cursor>
+        <div class="skill-head"><div class="si"><i class="fa fa-robot"></i></div><h4>Conversational AI</h4></div>
+        <div class="pills"><span>Pipecat</span><span>Dify</span><span>STT / TTS</span><span>VAD</span><span>Multi-agent systems</span><span>Agentic workflows</span><span>MCP</span><span>LangChain</span></div>
+      </div>
+      <div class="skill-card reveal" data-cursor>
+        <div class="skill-head"><div class="si"><i class="fa fa-database"></i></div><h4>Data &amp; RAG</h4></div>
+        <div class="pills"><span>Redis / Redis Stack</span><span>Vector search</span><span>RAG</span><span>MySQL</span><span>MongoDB</span></div>
+      </div>
+      <div class="skill-card reveal d1" data-cursor>
+        <div class="skill-head"><div class="si"><i class="fa fa-network-wired"></i></div><h4>Messaging &amp; Infra</h4></div>
+        <div class="pills"><span>ActiveMQ</span><span>Nginx</span><span>Docker</span></div>
+      </div>
+      <div class="skill-card reveal d2" data-cursor>
+        <div class="skill-head"><div class="si"><i class="fa fa-cloud"></i></div><h4>Cloud &amp; Observability</h4></div>
+        <div class="pills"><span>AWS EC2</span><span>GPU instances</span><span>IAM</span><span>Bedrock</span><span>GCP Cloud Run</span><span>Grafana</span><span>ELK / Kibana</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-   </footer> <!-- Footer End-->
+<!-- CONTACT -->
+<section class="pad" id="contact">
+  <div class="wrap">
+    <div class="contact-card reveal">
+      <span class="eyebrow"><span class="dot"></span>Let's talk</span>
+      <h2>Have a voice or telephony<br>challenge worth solving?</h2>
+      <p>Whether it's a real-time voice agent, SIP infrastructure, or a system that needs to scale — I'd love to hear about it.</p>
+      <div class="contact-actions">
+        <a href="mailto:thakurrajat126@gmail.com" class="btn btn-primary" data-magnetic data-cursor><i class="fa fa-envelope"></i> Email me</a>
+        <a href="https://www.linkedin.com/in/thakurrajat126" target="_blank" class="btn btn-ghost" data-magnetic data-cursor><i class="fab fa-linkedin-in"></i> Connect on LinkedIn</a>
+        <a href="./documents/Rajat_Thakur_Resume_2026.pdf" download class="btn btn-ghost" data-magnetic data-cursor><i class="fa fa-download"></i> Download Resume</a>
+      </div>
+      <div class="contact-meta">
+        <a href="mailto:thakurrajat126@gmail.com" data-cursor><i class="fa fa-envelope"></i> thakurrajat126@gmail.com</a>
+        <a href="https://www.linkedin.com/in/thakurrajat126" target="_blank" data-cursor><i class="fab fa-linkedin-in"></i> linkedin.com/in/thakurrajat126</a>
+        <span><i class="fa fa-location-dot"></i> Noida, India</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-   <!-- Java Script
-   ================================================== -->
-   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-   <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script>
-   <script type="text/javascript" src="js/jquery-migrate-1.2.1.min.js"></script>
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="fsoc">
+      <a href="https://www.linkedin.com/in/thakurrajat126" target="_blank" data-cursor aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://thakurrajat126.github.io" target="_blank" data-cursor aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.instagram.com/uskinazronse/" target="_blank" data-cursor aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    </div>
+    <p>© <span id="year"></span> Rajat Thakur · Designed &amp; built with care.</p>
+  </div>
+</footer>
 
-   <script src="js/jquery.flexslider.js"></script>
-   <script src="js/waypoints.js"></script>
-   <script src="js/jquery.fittext.js"></script>
-   <script src="js/magnific-popup.js"></script>
-   <script src="js/init.js"></script>
+<script>
+/* ============================================================
+   CURSOR — dot, ring (lerp), glow
+   ============================================================ */
+const dot=document.getElementById('dot'),ring=document.getElementById('ring'),glow=document.getElementById('glow');
+let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my,gx=mx,gy=my;
+addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+(function loop(){
+  rx+=(mx-rx)*.18; ry+=(my-ry)*.18;
+  gx+=(mx-gx)*.08; gy+=(my-gy)*.08;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  glow.style.left=gx+'px';glow.style.top=gy+'px';
+  requestAnimationFrame(loop);
+})();
+document.querySelectorAll('[data-cursor]').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));
+});
 
+/* ============================================================
+   NAV — scrolled state, burger, progress
+   ============================================================ */
+const nav=document.getElementById('nav'),progress=document.getElementById('progress');
+const burger=document.getElementById('burger'),links=document.getElementById('navlinks');
+addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',scrollY>30);
+  const h=document.documentElement.scrollHeight-innerHeight;
+  progress.style.width=(scrollY/h*100)+'%';
+});
+burger.addEventListener('click',()=>{links.classList.toggle('open');document.body.classList.toggle('menu-open');
+  burger.innerHTML=links.classList.contains('open')?'<i class="fa fa-xmark"></i>':'<i class="fa fa-bars"></i>';});
+links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  links.classList.remove('open');document.body.classList.remove('menu-open');burger.innerHTML='<i class="fa fa-bars"></i>';}));
+
+/* ============================================================
+   REVEAL on scroll
+   ============================================================ */
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ============================================================
+   HERO ROLE ROTATOR
+   ============================================================ */
+const roles=['Asterisk','Kamailio','Pipecat','PJSIP','Redis RAG'];let ri=0;
+const rolesEl=document.getElementById('roles');
+setInterval(()=>{ri=(ri+1)%roles.length;rolesEl.style.opacity=0;
+  setTimeout(()=>{rolesEl.textContent=roles[ri];rolesEl.style.opacity=1;},250);},2200);
+rolesEl.style.transition='opacity .3s';
+
+/* ============================================================
+   TILT card
+   ============================================================ */
+const tilt=document.getElementById('tilt');
+if(matchMedia('(hover:hover)').matches){
+  tilt.addEventListener('mousemove',e=>{
+    const r=tilt.getBoundingClientRect();
+    const px=(e.clientX-r.left)/r.width-.5, py=(e.clientY-r.top)/r.height-.5;
+    tilt.style.transform=`perspective(900px) rotateY(${px*10}deg) rotateX(${-py*10}deg) translateY(-4px)`;
+  });
+  tilt.addEventListener('mouseleave',()=>tilt.style.transform='perspective(900px) rotateY(0) rotateX(0)');
+}
+
+/* ============================================================
+   MAGNETIC buttons
+   ============================================================ */
+if(matchMedia('(hover:hover)').matches){
+  document.querySelectorAll('[data-magnetic]').forEach(btn=>{
+    btn.addEventListener('mousemove',e=>{
+      const r=btn.getBoundingClientRect();
+      btn.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.25}px,${(e.clientY-r.top-r.height/2)*.35}px)`;
+    });
+    btn.addEventListener('mouseleave',()=>btn.style.transform='translate(0,0)');
+  });
+}
+
+/* ============================================================
+   MISC
+   ============================================================ */
+document.getElementById('year').textContent=new Date().getFullYear();
+</script>
 </body>
-
 </html>
